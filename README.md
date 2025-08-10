@@ -1,77 +1,61 @@
 # ZMK Config for Lily58 with Nice!Nano v2
 
-Simple ZMK configuration for Lily58 keyboard with Nice!Nano v2 controllers.
+**Minimal working ZMK configuration** for Lily58 keyboard with Nice!Nano v2 controllers.
 
-## Features
+**Current Status:** ✅ Building successfully with ZMK defaults
 
-- Standard QWERTY layout
-- 4 layers (default, lower, raise, adjust)
-- Bluetooth connectivity with 5 profiles
-- Basic function keys and symbols
+## What's Included
+
+This is a **minimal setup** that uses ZMK's built-in defaults for Lily58:
+- Default QWERTY layout from ZMK
+- Standard Lily58 key bindings 
+- Default Bluetooth configuration
+- Automated GitHub Actions builds
 
 ## Getting the Firmware
 
-### Option 1: Download from GitHub Actions (Recommended)
+### Download from GitHub Actions
 
-1. Push changes to this repository
-2. Go to the **Actions** tab in GitHub
-3. Click on the latest build run
-4. Download the **firmware** artifact
-5. Extract to get the `.uf2` files
-
-### Option 2: Build Locally
-
-```bash
-# Clone and setup
-git clone <your-repo>
-cd <repo-name>
-west init -l config
-west update
-west zephyr-export
-
-# Build left half
-west build -s zmk/app -b nice_nano_v2 -- -DSHIELD=lily58_left -DZMK_CONFIG="$(pwd)/config"
-
-# Build right half  
-rm -rf build
-west build -s zmk/app -b nice_nano_v2 -- -DSHIELD=lily58_right -DZMK_CONFIG="$(pwd)/config"
-```
+1. Go to the **Actions** tab in this GitHub repository
+2. Click on the latest green build run
+3. Download the **firmware** artifact
+4. Extract to get the `.uf2` files:
+   - `lily58_left-nice_nano_v2-zmk.uf2`
+   - `lily58_right-nice_nano_v2-zmk.uf2`
 
 ## Flashing
 
-1. Put Nice!Nano into bootloader mode (double-tap reset)
-2. Copy the appropriate `.uf2` file to the mounted drive:
-   - `lily58_left-nice_nano_v2-zmk.uf2` for left half
-   - `lily58_right-nice_nano_v2-zmk.uf2` for right half
-3. Repeat for both halves
+1. Put Nice!Nano into bootloader mode (double-tap reset button)
+2. Copy the appropriate `.uf2` file to the mounted drive
+3. Repeat for both halves (left and right)
 
-## Layout
+## Current Files
 
-### Layer 0 (Default)
-Standard QWERTY with layer access keys.
+- `build.yaml` - Defines build targets (left/right halves)
+- `config/west.yml` - ZMK dependencies
+- `.github/workflows/build.yml` - GitHub Actions build workflow
 
-### Layer 1 (Lower) 
-Function keys F1-F12 and symbols.
+**No custom configuration files** - uses ZMK's built-in Lily58 defaults.
 
-### Layer 2 (Raise)
-Numbers and arrow keys.
+## Default Layout
 
-### Layer 3 (Adjust)
-Bluetooth controls (BT_CLR, BT_SEL 0-4).
+Uses ZMK's standard Lily58 layout:
+- **Layer 0:** QWERTY
+- **Layer 1:** Lower layer (symbols, F-keys)  
+- **Layer 2:** Raise layer (numbers, navigation)
+- **Layer 3:** Adjust layer (Bluetooth controls)
 
-## Bluetooth Pairing
+## Next Steps
 
-- **BT_CLR**: Clear current profile
-- **BT_SEL 0-4**: Select Bluetooth profile (0-4)
-- Access via Layer 3 (hold Lower + Raise simultaneously)
+This minimal setup provides a **working foundation**. You can add custom configuration by creating:
+- `config/lily58.keymap` - Custom key layout
+- `config/lily58.conf` - Hardware settings
+- `config/Kconfig.defconfig` - Build configuration
 
-## Configuration Files
+## Build Status
 
-- `build.yaml`: Build targets
-- `config/west.yml`: ZMK dependencies  
-- `config/lily58.keymap`: Key layout
-- `config/lily58.conf`: Hardware settings
-- `.github/workflows/build.yml`: GitHub Actions build
+✅ **Working** - Builds successfully on GitHub Actions  
+✅ **Tested** - Minimal configuration verified
 
 ## License
 
